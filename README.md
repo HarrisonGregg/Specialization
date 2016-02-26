@@ -1,4 +1,5 @@
-# Specialization
+# Specialization [![Build Status](https://travis-ci.org/HarrisonGregg/Specialization.svg?branch=master)](https://travis-ci.org/HarrisonGregg/Specialization)
+
 Connective Media education technology specialization project 
 
 ## API Documentation
