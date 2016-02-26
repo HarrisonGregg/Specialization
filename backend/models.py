@@ -13,4 +13,4 @@ class Link(models.Model):
 	score = models.IntegerField(default=0)
 
 	def __str__(self):
-		return "{topic}-{url}".format(topic=self.topic,url=self.url)
+		return "{topic} - {title}".format(topic=self.topic,title=self.title)

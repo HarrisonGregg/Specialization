@@ -6,7 +6,7 @@ from .models import Topic, Link
 class TopicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Topic
-        fields = ('name',)
+        fields = ('name','pk')
 
 class TopicViewSet(viewsets.ModelViewSet):
     queryset = Topic.objects.all()
@@ -17,7 +17,7 @@ class LinkSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Link
-        fields = ('url','score','pk','topic')
+        fields = ('url','score','pk','topic','title')
 
 class LinkViewSet(viewsets.ModelViewSet):
     queryset = Link.objects.all()
