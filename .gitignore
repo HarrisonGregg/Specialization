@@ -1,3 +1,5 @@
 env
 **/*.pyc
 staticfiles
+.DS_Store
+node_modules
