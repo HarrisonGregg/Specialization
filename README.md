@@ -6,33 +6,33 @@ Connective Media education technology specialization project
 ### Get Topics
 GET /topics/
 Response:
-'''json
+```json
 [
     {
         "name": "Bananas"
     }
 ]
-'''
+```
 
 ### Add Topic
 POST /topics/
 Body:
-'''json
+```json
 {
     "name": "Bananas"
 }
-'''
+```
 Response:
-'''json
+```json
 {
     "name": "Bananas"
 }
-'''
+```
 
 ### Get Links for Topic
 GET /topicLinks/<topic>
 Response:
-'''json
+```json
 [
     {
         "url": "https://en.wikipedia.org/wiki/Banana",
@@ -41,47 +41,47 @@ Response:
         "topic": 1
     }
 ]
-'''
+```
 
 ### Add Link
 POST /links/
 Body:
-'''json
+```json
 {
     "url": "https://en.wikipedia.org/wiki/Banana",
     "topic": 1
 }
-'''
+```
 Response:
-'''json
+```json
 {
 	"url": "https://en.wikipedia.org/wiki/Cavendish_banananananana",
 	"score": 0,
 	"pk": 5,
 	"topic": 1
 }
-'''
+```
 
 ### Update link
 PUT /links/<linkId>
 Body:
-'''json
+```json
 {
     "url": "https://en.wikipedia.org/wiki/Cavendish_bananas",
     "score": 7,
     "pk": 2,
     "topic": 1
 }
-'''
+```
 Response:
-'''json
+```json
 {
     "url": "https://en.wikipedia.org/wiki/Cavendish_bananas",
     "score": 7,
     "pk": 2,
     "topic": 1
 }
-'''
+```
 
 ### Delete Link
 DELETE /links/<linkId>
