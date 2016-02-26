@@ -15,8 +15,21 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.auth.models import User
+from backend.models import Topic, Link
+from rest_framework import routers, serializers, viewsets
+
+import backend.views
+from backend.serializers import *
+
+router = routers.DefaultRouter()
+router.register(r'^topics', TopicViewSet)
+router.register(r'^links', LinkViewSet)
 
 urlpatterns = [
+	url(r'^', include(router.urls)),
+	url(r'^topicLinks/(?P<topic>.*)/$', backend.views.topicLinks, name='links'),
+	# url(r'^link/(?P<pk>.*)/$', backend.views.link, name='link'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'webapp.views.index', name='index'),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
