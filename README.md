@@ -5,6 +5,7 @@ Connective Media education technology specialization project
 
 ### Get Topics
 GET /topics/
+
 Response:
 ```json
 [
@@ -16,12 +17,14 @@ Response:
 
 ### Add Topic
 POST /topics/
+
 Body:
 ```json
 {
     "name": "Bananas"
 }
 ```
+
 Response:
 ```json
 {
@@ -31,6 +34,7 @@ Response:
 
 ### Get Links for Topic
 GET /topicLinks/<topic>
+
 Response:
 ```json
 [
@@ -45,6 +49,7 @@ Response:
 
 ### Add Link
 POST /links/
+
 Body:
 ```json
 {
@@ -52,6 +57,7 @@ Body:
     "topic": 1
 }
 ```
+
 Response:
 ```json
 {
@@ -64,6 +70,7 @@ Response:
 
 ### Update link
 PUT /links/<linkId>
+
 Body:
 ```json
 {
@@ -73,6 +80,7 @@ Body:
     "topic": 1
 }
 ```
+
 Response:
 ```json
 {
