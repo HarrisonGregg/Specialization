@@ -10,7 +10,8 @@ Response:
 ```json
 [
     {
-        "name": "Bananas"
+        "name": "Bananas",
+        "pk": 1
     }
 ]
 ```
@@ -21,14 +22,16 @@ POST /topics/
 Body:
 ```json
 {
-    "name": "Bananas"
+    "name": "Bananas",
+    "pk": 1
 }
 ```
 
 Response:
 ```json
 {
-    "name": "Bananas"
+    "name": "Bananas",
+    "pk": 1
 }
 ```
 
