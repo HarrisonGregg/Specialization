@@ -33,12 +33,13 @@ Response:
 ```
 
 ### Get Links for Topic
-GET /topicLinks/<topic>
+GET /topicLinks/{topic}/
 
 Response:
 ```json
 [
     {
+    	"title":"Wikipedia",
         "url": "https://en.wikipedia.org/wiki/Banana",
         "score": 7,
         "pk": 1,
@@ -53,6 +54,7 @@ POST /links/
 Body:
 ```json
 {
+	"title":"Wikipedia",
     "url": "https://en.wikipedia.org/wiki/Banana",
     "topic": 1
 }
@@ -61,6 +63,7 @@ Body:
 Response:
 ```json
 {
+	"title":"Wikipedia",
 	"url": "https://en.wikipedia.org/wiki/Cavendish_banananananana",
 	"score": 0,
 	"pk": 5,
@@ -69,11 +72,12 @@ Response:
 ```
 
 ### Update link
-PUT /links/<linkId>
+PUT /links/{linkId}/
 
 Body:
 ```json
 {
+	"title":"Wikipedia",
     "url": "https://en.wikipedia.org/wiki/Cavendish_bananas",
     "score": 7,
     "pk": 2,
@@ -84,6 +88,7 @@ Body:
 Response:
 ```json
 {
+	"title":"Wikipedia",
     "url": "https://en.wikipedia.org/wiki/Cavendish_bananas",
     "score": 7,
     "pk": 2,
@@ -92,5 +97,5 @@ Response:
 ```
 
 ### Delete Link
-DELETE /links/<linkId>
+DELETE /links/{linkId}/
 
