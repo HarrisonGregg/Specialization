@@ -22,8 +22,3 @@ class LinkSerializer(serializers.ModelSerializer):
 class LinkViewSet(viewsets.ModelViewSet):
     queryset = Link.objects.all()
     serializer_class = LinkSerializer
-
-    def list(self, request, topic_id):
-        queryset = Link.objects.filter(topic_id=topic_id)
-        serializer = LinkSerializer(queryset)
-        return Response(serializer.data)
