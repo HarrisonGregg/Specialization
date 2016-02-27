@@ -1,0 +1,22 @@
+.margins{
+	padding-left: 25%;
+	padding-right: 25%;
+	padding-top: 5%;
+}
+
+.background{
+	background-color:rgba(3, 57, 108, 0.5);
+	font-family: "Verdana";
+	color: white;
+	align-content: center;
+}
+
+.buttons{
+	opacity: 0.5;
+	border-color:#b3cde0; 
+	fill:#b3cde0;
+}
+
+.icon-success {
+    color: #FFFFFF;
+}

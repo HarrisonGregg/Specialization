@@ -1,0 +1,28 @@
+language: python
+sudo: required
+python:
+- 3.5.1
+services: postgresql
+env:
+- DJANGO="1.9.2"
+before_install:
+- export DJANGO_SETTINGS_MODULE=Specialization.settings
+- export PYTHONPATH=$HOME/builds/HarrisonGregg/Specialization
+- export PIP_USE_MIRRORS=true
+install:
+- pip install -r requirements.txt
+before_script:
+- psql -c "CREATE DATABASE travisci;" -U postgres
+script:
+- python manage.py test
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+deploy:
+  provider: heroku
+  api_key:
+    secure: ACO5ylD4QNgOvpCsXvcwdAUdXY/jSLEVun4jpNm61Pf6S5W7oeMfiZLhOlAL+adIOAlSdxDO2GbMBmHNE/1QbYynbamqRxIJFmea1IHX4WWXOCV/N+Q8Uje8B21Sbg3GlmdAfUBAt5tz8s1U2z1l+yUG+FYqhIFZfVKRZFZNr638RrFYJgJyYl5MlH7Jb+FE8r1wk+kTxNB42Y1oPPsx9TS6q8tU24Km3E5q05NfR3f6F4qiN3Wisj90IOnzs3MmHuvTwVTkK+Z+SdDkOt8zx1fXh0d+T2M4c5SLwrtuqG2omh359FVWFcHMfwqFSLbPPKPtQqcU3pC1MGNvAZEk6G0OID54Jqglquyu9KzoX0q/nv/QcWbN+P2ogC5iewhQJDOEzJOAqQD5UCBXT8+92IS3XxSk4C2j5IQ9d+Q6LDyuAKUWDoTcO9oMCX2kruGptLuSRZMYRuGTFxJ63RYtwRxiYbeP+lxexkzXHMMR2+RuYeKGIj3Cq69brfn/m/SwyZ4cwPxZiQ2JmsKthKhzcOW/yrPQf9lEujfih2mybh6s7XOojROCiQpE+prFM1qJYt6oU4tUF05LdrU33/083DXm4w5fsD0QxUveO3U+8REr+Ur+sIrhAYSzzsjv5FQOncY22BHFNOmrhxGfzx7Ikw6ZFXBYz5gJMc7LE+K8YYI=
+  app: education-project
+  on:
+    repo: HarrisonGregg/Specialization

@@ -27,7 +27,7 @@ System.register(['angular2/core', './post_list.component'], function(exports_1, 
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        templateUrl: 'app/app.component.html',
+                        templateUrl: 'app/templates/app.component.html',
                         directives: [
                             post_list_component_1.PostListComponent
                         ]
