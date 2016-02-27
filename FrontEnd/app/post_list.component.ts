@@ -3,20 +3,8 @@ import {Post} from './post';
 
 @Component({
 	selector: 'post-list',
-	template: `
-		<input #newLink
-      		(keyup.enter)="addPost(newLink.value)"
-      		(blur)="newLink.value='' ">
-
-    	<button (click)=addPost(newLink.value)>PostLink</button>
-    	<ul>
-    		<li *ngFor="#post of postlist">{{post.link}}
-    			<button (click)=upVote(post)>upvote</button>
-    			<button (click)=downVote(post)>downvote</button>
-    			<div>vote = {{ post.vote }}</div>
-    		</li>
-    	</ul>
-	`
+	templateUrl: '/app/templates/post_list.component.html',
+	styleUrls: ['/css/app.component.css']
 })
 
 export class PostListComponent{

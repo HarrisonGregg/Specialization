@@ -1,0 +1,19 @@
+<body class="background">
+<div class="margins">
+	<ul class="list-group">
+		<li class="list-group-item" *ngFor="#post of postlist">
+			{{post.link}}
+			<div style="text-align: right;">
+				<button style="color:#011f4b;"(click)=upVote(post)><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button>
+				<button style="color:#011f4b;" (click)=downVote(post)><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></button>
+				<div class="label label-default label-pill">{{ post.vote }}</div>
+			</div>
+		</li>
+	</ul>
+	<input type="text" class="form-control" #newLink
+  		(keyup.enter)="addPost(newLink.value)"
+  		(blur)="newLink.value='' ">
+  	<br>
+	<button class="btn btn-primary btn-block buttons" (click)=addPost(newLink.value)>Post</button>	
+</div>
+</body>

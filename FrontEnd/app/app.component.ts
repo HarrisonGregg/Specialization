@@ -4,9 +4,11 @@ import {PostListComponent} from './post_list.component';
 
 @Component({
     selector: 'my-app',
-    templateUrl: 'app/app.component.html',
+    templateUrl: 'app/templates/app.component.html',
     directives: [
     	PostListComponent
     ]
 })
-export class AppComponent {}			
+export class AppComponent {
+
+}			
