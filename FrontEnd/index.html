@@ -12,6 +12,9 @@
     <script src="node_modules/systemjs/dist/system.src.js"></script>
     <script src="node_modules/rxjs/bundles/Rx.js"></script>
     <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="node_modules/angular2/bundles/http.dev.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+
 
     <!-- 2. Configure SystemJS -->
     <script>
@@ -27,11 +30,11 @@
             .then(null, console.error.bind(console));
     </script>
 
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    
   </head>
-
-  <!-- 3. Display the application -->
-  <body>
-    <my-app></my-app>
+  <body >
+    <my-app style="height: 0%"></my-app>
   </body>
 
 </html>
