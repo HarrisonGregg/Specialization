@@ -50,7 +50,8 @@ System.register(['angular2/core', './post', './post.service'], function(exports_
                 PostListComponent = __decorate([
                     core_1.Component({
                         selector: 'post-list',
-                        template: "\n\t\t<input #newLink\n      \t\t(keyup.enter)=\"addPost(newLink.value)\"\n      \t\t(blur)=\"newLink.value='' \">\n\n    \t<button (click)=addPost(newLink.value)>PostLink</button>\n    \t<ul>\n    \t\t<li *ngFor=\"#post of postlist\">{{post.link}}\n    \t\t\t<button (click)=upVote(post)>upvote</button>\n    \t\t\t<button (click)=downVote(post)>downvote</button>\n    \t\t\t<div>vote = {{ post.vote }}</div>\n    \t\t</li>\n    \t</ul>\n\t"
+                        templateUrl: 'app/templates/post_list.component.html',
+                        styleUrls: ['/app/css/post_list.component.html']
                     }), 
                     __metadata('design:paramtypes', [post_service_1.PostService])
                 ], PostListComponent);
