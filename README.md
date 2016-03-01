@@ -101,6 +101,7 @@ Response:
 
 ### Upvote link
 PUT /upvote/{linkId}/
+
 Response:
 ```json
 {
@@ -114,6 +115,7 @@ Response:
 
 ### Downvote link
 PUT /downvote/{linkId}/
+
 Response:
 ```json
 {
