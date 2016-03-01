@@ -10,10 +10,35 @@ from .serializers import *
 
 @csrf_exempt
 def topicLinks(request,topic):
-    """
-    List all links
-    """
-    if request.method == 'GET':
-        links = Link.objects.filter(topic__name=topic)
-        serializer = LinkSerializer(links, many=True, context={'request': request})
-        return JsonResponse(serializer.data, safe=False)
+	"""
+	List all links
+	"""
+	if request.method == 'GET':
+		links = Link.objects.filter(topic__name=topic)
+		serializer = LinkSerializer(links, many=True, context={'request': request})
+		return JsonResponse(serializer.data, safe=False)
+
+@csrf_exempt
+def upvote(request,link_pk):
+	"""
+	Increment the score for a link
+	"""
+	if request.method == 'PUT':
+		link = Link.objects.get(pk=link_pk)
+		link.score += 1
+		link.save()
+		serializer = LinkSerializer(link, context={'request': request})
+		return JsonResponse(serializer.data, safe=False)
+
+@csrf_exempt
+def downvote(request,link_pk):
+	"""
+	Increment the score for a link
+	"""
+	if request.method == 'PUT':
+		link = Link.objects.get(pk=link_pk)
+		link.score -= 1
+		link.save()
+		serializer = LinkSerializer(link, context={'request': request})
+		return JsonResponse(serializer.data, safe=False)
+
