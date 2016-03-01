@@ -33,6 +33,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable'], function(
                     console.log("services get called");
                     return this.http.get(this._postlistUrl)
                         .map(function (res) { return res.json().data; })
+                        .do(function (data) { return console.log(data); })
                         .catch(this.handleError);
                 };
                 PostService.prototype.handleError = function (error) {

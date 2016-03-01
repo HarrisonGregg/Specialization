@@ -13,6 +13,7 @@ export class PostService {
   	console.log("services get called")
     return this.http.get(this._postlistUrl)
                     .map(res => <Post[]> res.json().data)
+                    .do(data => console.log(data))
                     .catch(this.handleError);
   }
   private handleError (error: Response) {

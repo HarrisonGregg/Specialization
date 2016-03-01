@@ -11,12 +11,12 @@ System.register([], function(exports_1, context_1) {
                     this.vote = 0;
                 }
                 Post.prototype.upVote = function () {
-                    this.vote++;
+                    //this.vote++;
                 };
                 Post.prototype.downVote = function () {
-                    if (this.vote) {
-                        this.vote--;
-                    }
+                    //if(this.vote){
+                    //	this.vote--;
+                    //}
                 };
                 return Post;
             }());
