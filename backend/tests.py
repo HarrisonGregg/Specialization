@@ -59,7 +59,6 @@ class TestSuite(TestCase):
 		response = self.c.get('/links/')
 		self.assertEqual(response.status_code, 200)
 
-		# print({"topic":self.topic.id,"title":"Link Title","url":"Link URL"})
 		response = self.c.post('/links/',data={"topic":self.topic.id,"title":"Link Title","url":"http://wikipedia.com/Topic"})
 		self.assertEqual(response.status_code, 201)
 		link = response.json()
@@ -70,9 +69,7 @@ class TestSuite(TestCase):
 		links = response.json()
 		self.assertGreater(len(links),0)
 		link['score'] = 1
-		print(link)
 		response = self.c.put('/links/{0}/'.format(link['pk']),data=json.dumps(link),content_type='application/json')
-		print(response.json())
 		self.assertEqual(response.status_code, 200)
 
 		response = self.c.get('/links/{0}/'.format(link['pk']))
