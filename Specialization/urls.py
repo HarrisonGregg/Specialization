@@ -29,6 +29,8 @@ router.register(r'^links', LinkViewSet)
 urlpatterns = [
 	url(r'^', include(router.urls)),
 	url(r'^topicLinks/(?P<topic>.*)/$', backend.views.topicLinks, name='links'),
+	url(r'^upvote/(?P<link_pk>.*)/$', backend.views.upvote, name='upvote'),
+	url(r'^downvote/(?P<link_pk>.*)/$', backend.views.downvote, name='downvote'),
 	# url(r'^link/(?P<pk>.*)/$', backend.views.link, name='link'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

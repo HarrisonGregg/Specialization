@@ -23,8 +23,7 @@ POST /topics/
 Body:
 ```json
 {
-    "name": "Bananas",
-    "pk": 1
+    "name": "Bananas"
 }
 ```
 
@@ -88,6 +87,34 @@ Body:
     "topic": 1
 }
 ```
+
+Response:
+```json
+{
+	"title":"Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Cavendish_bananas",
+    "score": 7,
+    "pk": 2,
+    "topic": 1
+}
+```
+
+### Upvote link
+PUT /upvote/{linkId}/
+
+Response:
+```json
+{
+	"title":"Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Cavendish_bananas",
+    "score": 7,
+    "pk": 2,
+    "topic": 1
+}
+```
+
+### Downvote link
+PUT /downvote/{linkId}/
 
 Response:
 ```json
