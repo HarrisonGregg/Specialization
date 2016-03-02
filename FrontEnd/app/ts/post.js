@@ -6,18 +6,11 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             Post = (function () {
-                function Post(newLink) {
-                    this.link = newLink;
-                    this.vote = 0;
+                function Post(newLink, newTitle, newTopic) {
+                    this.url = newLink;
+                    this.topic = newTitle;
+                    this.title = newTopic;
                 }
-                Post.prototype.upVote = function () {
-                    //this.vote++;
-                };
-                Post.prototype.downVote = function () {
-                    //if(this.vote){
-                    //	this.vote--;
-                    //}
-                };
                 return Post;
             }());
             exports_1("Post", Post);

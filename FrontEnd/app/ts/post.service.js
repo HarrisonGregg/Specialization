@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', 'rxjs/Observable'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', './post', 'rxjs/Observable'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable'], function(
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, Observable_1;
+    var core_1, http_1, post_1, Observable_1, http_2;
     var PostService;
     return {
         setters:[
@@ -19,6 +19,10 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable'], function(
             },
             function (http_1_1) {
                 http_1 = http_1_1;
+                http_2 = http_1_1;
+            },
+            function (post_1_1) {
+                post_1 = post_1_1;
             },
             function (Observable_1_1) {
                 Observable_1 = Observable_1_1;
@@ -27,13 +31,38 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable'], function(
             PostService = (function () {
                 function PostService(http) {
                     this.http = http;
-                    this._postlistUrl = 'http://education-project.heroku.com/topicLinks/Bananas/'; // URL to web api
+                    this._postlistUrl = 'http://education-project.herokuapp.com/topicLinks/Bananas/'; // URL to web api
+                    this._addlinkUrl = 'http://education-project.herokuapp.com/links/';
+                    this._updatelinkUrl = 'http://education-project.herokuapp.com/links/';
                 }
                 PostService.prototype.getPostList = function () {
                     console.log("services get called");
                     return this.http.get(this._postlistUrl)
-                        .map(function (res) { return res.json().data; })
+                        .map(function (res) { return res.json(); })
                         .do(function (data) { return console.log(data); })
+                        .catch(this.handleError);
+                };
+                PostService.prototype.addPost = function (newLink, newTitle, newTopic) {
+                    if (newTitle === void 0) { newTitle = ""; }
+                    if (newTopic === void 0) { newTopic = 1; }
+                    var newPost = new post_1.Post(newLink, newTopic, newTitle);
+                    console.log(newPost);
+                    var body = JSON.stringify(newPost);
+                    var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
+                    var options = new http_2.RequestOptions({ headers: headers });
+                    return this.http.post(this._addlinkUrl, body, options)
+                        .map(function (res) { return res.json(); })
+                        .do(function (data) { return console.log("add link", data); })
+                        .catch(this.handleError);
+                };
+                PostService.prototype.updateLink = function (post) {
+                    var body = JSON.stringify(post);
+                    var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
+                    var options = new http_2.RequestOptions({ headers: headers,
+                        url: this._updatelinkUrl + post.pk + "/" });
+                    return this.http.put(this._updatelinkUrl, body, options)
+                        .map(function (res) { return res.json(); })
+                        .do(function (data) { return console.log("update link", data); })
                         .catch(this.handleError);
                 };
                 PostService.prototype.handleError = function (error) {

@@ -1,4 +1,4 @@
-System.register(['angular2/core', './post', './post.service'], function(exports_1, context_1) {
+System.register(['angular2/core', './post.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,15 +10,12 @@ System.register(['angular2/core', './post', './post.service'], function(exports_
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, post_1, post_service_1;
+    var core_1, post_service_1;
     var PostListComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (post_1_1) {
-                post_1 = post_1_1;
             },
             function (post_service_1_1) {
                 post_service_1 = post_service_1_1;
@@ -36,16 +33,25 @@ System.register(['angular2/core', './post', './post.service'], function(exports_
                     this._postService.getPostList()
                         .subscribe(function (postlist) { return _this.postlist = postlist; }, function (error) { return _this.errorMessage = error; });
                 };
-                PostListComponent.prototype.addPost = function (newLink) {
-                    var post = new post_1.Post(newLink);
-                    this.postlist.push(post);
-                    console.log(post.link);
+                PostListComponent.prototype.addPost = function (newLink, newTitle, newTopic) {
+                    var _this = this;
+                    if (newLink === void 0) { newLink = "http://google.com"; }
+                    if (newTitle === void 0) { newTitle = "title"; }
+                    if (newTopic === void 0) { newTopic = 1; }
+                    this._postService.addPost(newLink, newTitle, newTopic)
+                        .subscribe(function (post) { return _this.postlist.push(post); }, function (error) { return _this.errorMessage = error; });
                 };
                 PostListComponent.prototype.upVote = function (post) {
-                    post.upVote();
+                    var _this = this;
+                    post.score++;
+                    this._postService.updateLink(post)
+                        .subscribe(function (updatedPost) { return post = updatedPost; }, function (error) { return _this.errorMessage = error; });
                 };
                 PostListComponent.prototype.downVote = function (post) {
-                    post.downVote();
+                    var _this = this;
+                    post.score--;
+                    this._postService.updateLink(post)
+                        .subscribe(function (updatedPost) { return post = updatedPost; }, function (error) { return _this.errorMessage = error; });
                 };
                 PostListComponent = __decorate([
                     core_1.Component({

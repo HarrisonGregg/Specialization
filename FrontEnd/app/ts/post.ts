@@ -1,16 +1,12 @@
 export class Post {
-	public name: string;
-	private pk : number;
-	constructor(newLink: string){
-		this.link = newLink;
-		this.vote = 0;
-	}
-	upVote(){
-		//this.vote++;
-	}
-	downVote(){
-		//if(this.vote){
-		//	this.vote--;
-		//}
+	public title: string;
+	public url: string;
+	public score: number;
+	public topic: number;
+	public pk: number;
+	constructor(newLink: string, newTitle: string, newTopic: number){
+		this.url = newLink;
+		this.topic = newTitle;
+		this.title= newTopic;
 	}
 }

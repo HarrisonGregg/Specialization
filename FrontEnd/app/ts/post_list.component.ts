@@ -23,24 +23,32 @@ export class PostListComponent implements OnInit{
   		console.log('component getpostlist called');
     	this._postService.getPostList()
                      	 .subscribe(
-                          postlist => this.postlist = postlist,
-                          error =>  this.errorMessage = <any>error);
-
+                          	postlist => this.postlist = postlist,
+                          	error => this.errorMessage = <any>error);
   	}
 
 
-	addPost(newLink:string) {
-		var post = new Post(newLink);
-		this.postlist.push(post);
-		console.log(post.link);
+	addPost(newLink = "http://google.com", newTitle = "title", newTopic=1) {
+		this._postService.addPost(newLink, newTitle, newTopic)
+						 .subscribe(
+                     		post => this.postlist.push(post),
+                     		error =>  this.errorMessage = <any>error);
 	}
 
 	upVote(post: Post){
-		post.upVote();
+		post.score++;
+		this._postService.updateLink(post)
+						 .subscribe(
+						 	updatedPost => post = updatedPost,
+						 	error => this.errorMessage = <any>error);
 	}
 
 	downVote(post: Post){
-		post.downVote();
+		post.score--;
+		this._postService.updateLink(post)
+						 .subscribe(
+						 	updatedPost => post = updatedPost,
+						 	error => this.errorMessage = <any>error);
 	}
 
 }
