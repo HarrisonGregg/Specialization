@@ -14,7 +14,7 @@ def topicLinks(request,topic):
 	List all links
 	"""
 	if request.method == 'GET':
-		links = Link.objects.filter(topic__name=topic)
+		links = Link.objects.filter(topic__name=topic).order_by('-score')
 		serializer = LinkSerializer(links, many=True, context={'request': request})
 		return JsonResponse(serializer.data, safe=False)
 
