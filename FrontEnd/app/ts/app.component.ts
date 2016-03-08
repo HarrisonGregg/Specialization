@@ -17,6 +17,20 @@ import {PostService}       from './post.service';
     	PostService
     ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+
+    public url:string= "../../images/background2.png";
+
+    changeBackground() {
+        if(this.url == "../../images/background2.png"){
+            this.url = "../../images/background2-2.jpg";
+        }
+        else{
+            this.url = "../../images/background2.png";
+        }
+    }
+    ngOnInit() { 
+        setInterval(()=>{this.changeBackground();}, 2000); 
+    }
 
 }			

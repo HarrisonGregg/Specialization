@@ -2,27 +2,39 @@
 	<link rel="stylesheet" href="/app/css/post_list.component.css">
 </head>
 <body class="background">
-	<div class="navbar">
-		<div class="brand">Brand</div>
-		<div class="signup">Sign Up</div>
-		<div class="login">Log In</div>
-	</div>
 	<div class="canvas1">
+		<div class="navbar">
+			<div class="brand">Brand</div>
+			<div class="signup">Sign Up</div>
+			<div class="login">Log In</div>
+		</div>
 		<h1>Say something here..</h1>
 		<form role="search">
-          	<input type="text" class="form-control" placeholder="Search">
+          	<input type="text" class="form-control" placeholder="A topic you want to learn..">
       	</form>
 	</div>
 	<div class="canvas2">
-		<div class="caption">Be an contributor</div>
-		<div class="left"></div>
+		<div class="caption">Sharing and Contributing</div>
+		<div class="left" [style.background-image] = "'url(' + url + ')'"></div>
 		<div class="right">
 			<h2>Need something here</h2>
 
 			<p>Aliquam vel neque blandit, lobortis ante ac, lacinia quam. Donec et metus vitae elit finibus rhoncus.</p>
 			<div class="contribute">
-				<div class="button">Get Started</div>
+				<div class="button">Start Contributing</div>
 			</div>
 		</div>
+	</div>
+
+	<div class="canvas3">
+		<div class="left">
+			<h1>Knowledge</h1>
+		</div>
+		<div class="right">
+			<h1>CrowdSourcing</h1>
+		</div>
+	</div>
+	<div class="footer">
+		<div class="copyright">&#169; HYP, Cornell Tech</div>
 	</div>
 </body>
