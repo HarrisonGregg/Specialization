@@ -11,6 +11,7 @@ class Link(models.Model):
 	title = models.CharField(max_length=1000)
 	url = models.URLField(max_length=1000)
 	score = models.IntegerField(default=0)
+	date_added = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
 		return "{topic} - {title}".format(topic=self.topic,title=self.title)

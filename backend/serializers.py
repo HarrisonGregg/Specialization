@@ -17,7 +17,7 @@ class LinkSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Link
-        fields = ('url','score','pk','topic','title')
+        fields = ('url','score','pk','topic','title','date_added')
 
 class LinkViewSet(viewsets.ModelViewSet):
     queryset = Link.objects.all()
