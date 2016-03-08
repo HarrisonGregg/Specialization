@@ -43,15 +43,29 @@ System.register(['angular2/core', './post.service'], function(exports_1, context
                 };
                 PostListComponent.prototype.upVote = function (post) {
                     var _this = this;
-                    post.score++;
-                    this._postService.updateLink(post)
-                        .subscribe(function (updatedPost) { return post = updatedPost; }, function (error) { return _this.errorMessage = error; });
+                    if (post.vote === -1) {
+                        post.score++;
+                        post.vote = 0;
+                    }
+                    if (!post.vote) {
+                        post.score++;
+                        post.vote = 1;
+                        this._postService.updateLink(post)
+                            .subscribe(function (updatedPost) { return post = updatedPost; }, function (error) { return _this.errorMessage = error; });
+                    }
                 };
                 PostListComponent.prototype.downVote = function (post) {
                     var _this = this;
-                    post.score--;
-                    this._postService.updateLink(post)
-                        .subscribe(function (updatedPost) { return post = updatedPost; }, function (error) { return _this.errorMessage = error; });
+                    if (post.vote === 1) {
+                        post.score--;
+                        post.vote = 0;
+                    }
+                    if (!post.vote) {
+                        post.score--;
+                        post.vote = -1;
+                        this._postService.updateLink(post)
+                            .subscribe(function (updatedPost) { return post = updatedPost; }, function (error) { return _this.errorMessage = error; });
+                    }
                 };
                 PostListComponent = __decorate([
                     core_1.Component({

@@ -8,6 +8,7 @@ import {PostService}       from './post.service';
 @Component({
     selector: 'my-app',
     templateUrl: 'app/templates/app.component.html',
+    styleUrls: ['app/css/app.component.css'],
     directives: [
     	PostListComponent
     ]

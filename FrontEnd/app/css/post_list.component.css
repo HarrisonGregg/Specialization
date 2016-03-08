@@ -1,10 +1,8 @@
 .margins{
-	padding-left: 25%;
-	padding-right: 25%;
-	padding-top: 5%;
+	padding: 10px 25%;
 }
 
-.background{
+.post-list{
 	background-color:rgba(3, 57, 108, 0.6);
 	font-family: "Verdana";
 }
@@ -21,4 +19,47 @@
 
 #list-group-item {
 	color: black; 
+}
+
+.link h3 {
+	margin: 0;
+}
+.link .voting {
+	float: right;
+}
+.link .voting > * {
+	display: block;
+}
+.link .body {
+    padding: 5px;
+    /*padding-left: 40px;*/
+}
+.form-list > *{
+	border-radius: 0;
+}
+.form-list > *:first-child {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+.form-list > *:last-child {
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+.add-post input {
+	text-align: center;
+}
+
+.voting {
+	text-align: center;
+}
+.voting .arrow {
+	margin: -8px 0;
+	font-size: 18px;
+}
+
+.voting .upvote.clicked {
+	color: green;
+}
+.voting .downvote.clicked {
+	color: red;
 }

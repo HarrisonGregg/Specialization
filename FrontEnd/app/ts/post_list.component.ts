@@ -36,19 +36,33 @@ export class PostListComponent implements OnInit{
 	}
 
 	upVote(post: Post){
-		post.score++;
-		this._postService.updateLink(post)
-						 .subscribe(
-						 	updatedPost => post = updatedPost,
-						 	error => this.errorMessage = <any>error);
+		if(post.vote === -1){
+			post.score++;
+			post.vote = 0;
+		}
+		if(!post.vote){
+			post.score++;
+			post.vote = 1;
+			this._postService.updateLink(post)
+							 .subscribe(
+							 	updatedPost => post = updatedPost,
+							 	error => this.errorMessage = <any>error);
+		}
 	}
 
 	downVote(post: Post){
-		post.score--;
-		this._postService.updateLink(post)
-						 .subscribe(
-						 	updatedPost => post = updatedPost,
-						 	error => this.errorMessage = <any>error);
+		if(post.vote === 1){
+			post.score--;
+			post.vote = 0;
+		}
+		if(!post.vote){
+			post.score--;
+			post.vote = -1;
+			this._postService.updateLink(post)
+							 .subscribe(
+							 	updatedPost => post = updatedPost,
+							 	error => this.errorMessage = <any>error);
+		}
 	}
 
 }

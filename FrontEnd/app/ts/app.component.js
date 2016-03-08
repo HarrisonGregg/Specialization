@@ -34,6 +34,7 @@ System.register(['angular2/core', './post_list.component', 'angular2/http', './p
                     core_1.Component({
                         selector: 'my-app',
                         templateUrl: 'app/templates/app.component.html',
+                        styleUrls: ['app/css/app.component.css'],
                         directives: [
                             post_list_component_1.PostListComponent
                         ],
