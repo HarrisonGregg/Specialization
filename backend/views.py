@@ -9,6 +9,16 @@ from .models import Link, Topic
 from .serializers import *
 
 @csrf_exempt
+def getTopic(request,topic_name):
+	"""
+	Return the topic object from the name
+	"""
+	if request.method == 'GET':
+		topic = Topic.objects.get(name=topic_name)
+		serializer = TopicSerializer(topic, context={'request': request})
+		return JsonResponse(serializer.data, safe=False)
+
+@csrf_exempt
 def searchTopics(request,search_string):
 	"""
 	Return a list of topics based on the search
@@ -18,14 +28,13 @@ def searchTopics(request,search_string):
 		serializer = TopicSerializer(topics, many=True, context={'request': request})
 		return JsonResponse(serializer.data, safe=False)
 
-
 @csrf_exempt
-def topicLinks(request,topic):
+def topicLinks(request,topic_name):
 	"""
 	List all links
 	"""
 	if request.method == 'GET':
-		links = Link.objects.filter(topic__name=topic).order_by('-score')
+		links = Link.objects.filter(topic__name=topic_name).order_by('-score')
 		serializer = LinkSerializer(links, many=True, context={'request': request})
 		return JsonResponse(serializer.data, safe=False)
 

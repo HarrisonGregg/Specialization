@@ -29,7 +29,8 @@ router.register(r'^links', LinkViewSet)
 urlpatterns = [
 	url(r'^', include(router.urls)),
     url(r'^search/(?P<search_string>.*)/$', backend.views.searchTopics, name='search'),
-	url(r'^topicLinks/(?P<topic>.*)/$', backend.views.topicLinks, name='links'),
+    url(r'^topicLinks/(?P<topic_name>.*)/$', backend.views.topicLinks, name='links'),
+	url(r'^getTopic/(?P<topic_name>.*)/$', backend.views.getTopic, name='getTopic'),
 	url(r'^upvote/(?P<link_pk>.*)/$', backend.views.upvote, name='upvote'),
 	url(r'^downvote/(?P<link_pk>.*)/$', backend.views.downvote, name='downvote'),
 	# url(r'^link/(?P<pk>.*)/$', backend.views.link, name='link'),
