@@ -24,7 +24,7 @@ def searchTopics(request,search_string):
 	Return a list of topics based on the search
 	"""
 	if request.method == 'GET':
-		topics = Topic.objects.filter(name__icontains=search_string)
+		topics = Topic.objects.all()#filter(name__icontains=search_string)
 		serializer = TopicSerializer(topics, many=True, context={'request': request})
 		return JsonResponse(serializer.data, safe=False)
 
