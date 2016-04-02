@@ -6,6 +6,9 @@ class Topic(models.Model):
 	def __str__(self):
 		return self.name
 
+	def count_links(self):
+		return Link.objects.filter(topic=self).count()
+
 class Link(models.Model):
 	topic = models.ForeignKey(Topic, related_name='topic') 
 	title = models.CharField(max_length=1000)
