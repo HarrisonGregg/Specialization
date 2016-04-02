@@ -1,4 +1,6 @@
 
+organizing all 
+
 topic
 subject
 skill
@@ -57,7 +59,9 @@ candida
 candor
 athena
 expert
-
+tree
+grow
+sprout
 
 Your self guided learning platform
 
@@ -77,6 +81,13 @@ Consistency
 ideal qualities
  - 2 or 3 syllables
  - easy to spell
- - lets people know it's about learning
+ - lets people know it's about learning/knowledge/goals
  - .com available
  - sounds catchy
+
+
+
+
+Technical Interviews
+ - Big Oh
+
