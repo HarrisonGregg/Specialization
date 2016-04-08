@@ -1,15 +1,5 @@
 from django.db import models
 
-class Trajectory(models.Model):
-	name = models.CharField(max_length=100)
-
-class Level(models.Model):
-	trajectory = models.ForeignKey(Trajectory)
-	topics = models.ManyToManyField(Topic)
-
-	def __str__(self):
-		return "{trajectory} - {name}".format(trajectory=self.trajectory.name,name=self.name)
-
 class Topic(models.Model):
 	name = models.CharField(max_length=100)
 
@@ -28,3 +18,14 @@ class Link(models.Model):
 
 	def __str__(self):
 		return "{topic} - {title}".format(topic=self.topic,title=self.title)
+
+class Trajectory(models.Model):
+	name = models.CharField(max_length=100)
+
+class Level(models.Model):
+	trajectory = models.ForeignKey(Trajectory)
+	name = models.CharField(max_length=100)
+	topics = models.ManyToManyField(Topic)
+
+	def __str__(self):
+		return "{trajectory} - {name}".format(trajectory=self.trajectory.name,name=self.name)
