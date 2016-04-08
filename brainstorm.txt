@@ -1,4 +1,3 @@
-
 organizing all 
 
 topic
@@ -55,7 +54,6 @@ agora
 curricula
 brevi
 dida-
-candida
 candor
 athena
 expert
