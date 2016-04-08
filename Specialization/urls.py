@@ -25,6 +25,7 @@ from backend.serializers import *
 router = routers.DefaultRouter()
 router.register(r'^topics', TopicViewSet)
 router.register(r'^links', LinkViewSet)
+router.register(r'^trajectories', TrajectoryViewSet)
 
 urlpatterns = [
 	url(r'^', include(router.urls)),

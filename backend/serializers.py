@@ -1,7 +1,23 @@
 from rest_framework import routers, serializers, viewsets
 from rest_framework.response import Response
 
-from .models import Topic, Link
+from .models import Trajectory, Level, Topic, Link
+
+class TrajectorySerializer(serializers.ModelSerializer):
+    levels = LevelSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Trajectory
+        fields = ('name','levels')
+
+class TrajectoryViewSet(viewsets.ModelViewSet):
+    queryset = Trajectory.objects.all()
+    serializer_class = TrajectorySerializer
+
+class LevelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Level 
+        fields = ('name','topics')
 
 class TopicSerializer(serializers.ModelSerializer):
     link_count = serializers.IntegerField(source='count_links', read_only=True)
