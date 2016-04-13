@@ -22,10 +22,13 @@ class Link(models.Model):
 class Trajectory(models.Model):
 	name = models.CharField(max_length=100)
 
+	def __str__(self):
+		return self.name
+
 class Level(models.Model):
-	trajectory = models.ForeignKey(Trajectory)
+	trajectory = models.ForeignKey(Trajectory,related_name='levels')
 	name = models.CharField(max_length=100)
 	topics = models.ManyToManyField(Topic)
 
 	def __str__(self):
-		return "{trajectory} - {name}".format(trajectory=self.trajectory.name,name=self.name)
+		return self.name
