@@ -28,7 +28,7 @@ class Trajectory(models.Model):
 class Level(models.Model):
 	trajectory = models.ForeignKey(Trajectory,related_name='levels')
 	name = models.CharField(max_length=100)
-	topics = models.ManyToManyField(Topic)
+	topics = models.ManyToManyField(Topic, blank=True)
 
 	def __str__(self):
 		return self.name
