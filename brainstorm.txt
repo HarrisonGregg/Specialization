@@ -61,7 +61,6 @@ tree
 grow
 sprout
 
-Your self guided learning platform
 
 
 What is the purpose of this site?
@@ -89,3 +88,10 @@ ideal qualities
 Technical Interviews
  - Big Oh
 
+
+
+Your self guided learning platform
+Start learning online
+
+
+Online learning is empowering everyone to gain new skills outside of the conventional school setting. But anyone who's tried knows that online learning can be a pain.  Say you want to become a software developer?  Where do you start?  Learn Something crowdsources learning paths and resources to give you constantly evolving and updating education that helps you accomplish your learning goals.  What are you waiting for?  Learning something new at education-project.surge.sh.
