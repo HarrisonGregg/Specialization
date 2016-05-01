@@ -1,4 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericForeignKey
+
+# class Comment(models.Model):
+# 	parent = GenericForeignKey()
+# 	user = ForeignKey(User)
+# 	text = models.TextField()
+# 	date_created = models.DateTimeField(auto_now_add=True)
 
 class Topic(models.Model):
 	name = models.CharField(max_length=100)
