@@ -27,6 +27,17 @@ class Link(models.Model):
 	def __str__(self):
 		return "{topic} - {title}".format(topic=self.topic,title=self.title)
 
+class VocabWord(models.Model):
+	date_added = models.DateTimeField(auto_now_add=True)
+	
+	topic = models.ForeignKey(Topic, related_name='topic') 
+	term = models.CharField(max_length=1000)
+	definition = models.TextField()
+	score = models.IntegerField(default=0)
+
+	def __str__(self):
+		return self.term
+
 class Trajectory(models.Model):
 	name = models.CharField(max_length=100)
 
