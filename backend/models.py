@@ -22,12 +22,11 @@ class Topic(models.Model):
 		return Link.objects.filter(topic=self).count()
 
 class Link(models.Model):
-	topic = models.ForeignKey(Topic, related_name='topic') 
+	topic = models.ForeignKey(Topic, related_name='link') 
 	title = models.CharField(max_length=1000)
 	url = models.URLField(max_length=1000)
 	score = models.IntegerField(default=0)
 	date_added = models.DateTimeField(auto_now_add=True)
-	comments = models.OneToManyField(Comment)
 
 	def __str__(self):
 		return "{topic} - {title}".format(topic=self.topic,title=self.title)
@@ -35,7 +34,7 @@ class Link(models.Model):
 class VocabWord(models.Model):
 	date_added = models.DateTimeField(auto_now_add=True)
 
-	topic = models.ForeignKey(Topic, related_name='topic') 
+	topic = models.ForeignKey(Topic, related_name='vocab_word') 
 	term = models.CharField(max_length=1000)
 	definition = models.TextField()
 	score = models.IntegerField(default=0)
