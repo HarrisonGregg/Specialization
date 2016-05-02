@@ -1,14 +1,20 @@
 from rest_framework import routers, serializers, viewsets
 from rest_framework.response import Response
 
-from .models import Trajectory, Level, Topic, Link
+from .models import Trajectory, Level, Topic, Link, Comment
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ('date_created', 'score', 'user', 'text')
 
 class TopicSerializer(serializers.ModelSerializer):
     link_count = serializers.IntegerField(source='count_links', read_only=True)
+    comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Topic
-        fields = ('name','pk','link_count')
+        fields = ('name','pk','link_count','comments')
 
 class TopicViewSet(viewsets.ModelViewSet):
     queryset = Topic.objects.all()
