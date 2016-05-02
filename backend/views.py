@@ -11,6 +11,19 @@ from .models import Link, Topic
 from .serializers import *
 
 @csrf_exempt
+def comment(request):
+	"""
+	Add a comment
+	"""
+	if request.method == 'POST':
+		topic_id = request.POST["topic_id"]
+		text = request.POST["text"]
+		comment = Comment(text=text,user=request.user)
+		comment.save()
+		topic = Topic.objects.get(id=topic_id)
+		topic.comments.add(comment)
+
+@csrf_exempt
 def getTopic(request,topic_name):
 	"""
 	Return the topic object from the name
