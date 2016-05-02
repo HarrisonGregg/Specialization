@@ -2,14 +2,18 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 
-# class Comment(models.Model):
-# 	parent = GenericForeignKey()
-# 	user = ForeignKey(User)
-# 	text = models.TextField()
-# 	date_created = models.DateTimeField(auto_now_add=True)
+class Comment(models.Model):
+	date_created = models.DateTimeField(auto_now_add=True)
+
+	score = models.IntegerField(default=0)
+	user = models.ForeignKey(User)
+	text = models.TextField()
+
+	# comments = models.ManyToManyField(Comment, blank=True, null=True)
 
 class Topic(models.Model):
 	name = models.CharField(max_length=100)
+	comments = models.ManyToManyField(Comment, blank=True)
 
 	def __str__(self):
 		return self.name
@@ -23,13 +27,14 @@ class Link(models.Model):
 	url = models.URLField(max_length=1000)
 	score = models.IntegerField(default=0)
 	date_added = models.DateTimeField(auto_now_add=True)
+	comments = models.OneToManyField(Comment)
 
 	def __str__(self):
 		return "{topic} - {title}".format(topic=self.topic,title=self.title)
 
 class VocabWord(models.Model):
 	date_added = models.DateTimeField(auto_now_add=True)
-	
+
 	topic = models.ForeignKey(Topic, related_name='topic') 
 	term = models.CharField(max_length=1000)
 	definition = models.TextField()
