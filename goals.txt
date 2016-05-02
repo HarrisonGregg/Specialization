@@ -1,0 +1,9 @@
+STRETCH GOAL
+Create an online platform for crowdsourcing an online learning system, either with crowdsourced content, or by crowdsourcing the organization of existing content.
+
+S.M.A.R.T. GOALS (specific, measurable, attainable, relevant, time-bound)
+
+Add a simple commenting system to links
+
+Add a vocab list system to topics
+
