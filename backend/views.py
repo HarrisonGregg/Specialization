@@ -11,17 +11,28 @@ from .models import Link, Topic
 from .serializers import *
 
 @csrf_exempt
-def comment(request):
+def currentUser(request):
 	"""
-	Add a comment
+	Check if a user is logged in and get their username
 	"""
-	if request.method == 'POST':
-		topic_id = request.POST["topic_id"]
-		text = request.POST["text"]
-		comment = Comment(text=text,user=request.user)
-		comment.save()
-		topic = Topic.objects.get(id=topic_id)
-		topic.comments.add(comment)
+	if request.user.is_authenticated():
+		print(request.user.username)
+		return HttpResponse(request.user.username)
+	return HttpResponseBadRequest("no user logged in")
+
+# @csrf_exempt
+# def comment(request):
+# 	"""
+# 	Add a comment
+# 	"""
+# 	if request.method == 'POST':
+# 		topic_id = request.POST["topic_id"]
+# 		text = request.POST["text"]
+# 		user = User.objects.get(id=1)
+# 		comment = Comment(text=text,user=user)
+# 		comment.save()
+# 		topic = Topic.objects.get(id=topic_id)
+# 		topic.comments.add(comment)
 
 @csrf_exempt
 def getTopic(request,topic_name):
@@ -118,15 +129,10 @@ def signin(request):
 		return HttpResponseBadRequest("Use a POST request to login.")
 
 	try:
-		email 	 	 = request.POST["email"]
+		username 	 = request.POST["username"]
 		password 	 = request.POST["password"]
 	except:
 		return HttpResponseBadRequest("Please include a username and password.")
-
-	try:
-		username = User.objects.get(email=email).username
-	except:
-		return HttpResponseBadRequest("Invalid username or password.")
 
 	user = authenticate(username=username, password=password)
 	if not user or not user.is_active:

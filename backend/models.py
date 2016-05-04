@@ -2,18 +2,18 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 
-class Comment(models.Model):
-	date_created = models.DateTimeField(auto_now_add=True)
+# class Comment(models.Model):
+# 	date_created = models.DateTimeField(auto_now_add=True)
 
-	score = models.IntegerField(default=0)
-	user = models.ForeignKey(User)
-	text = models.TextField()
+# 	score = models.IntegerField(default=0)
+# 	user = models.ForeignKey(User)
+# 	text = models.TextField()
 
 	# comments = models.ManyToManyField(Comment, blank=True, null=True)
 
 class Topic(models.Model):
 	name = models.CharField(max_length=100)
-	comments = models.ManyToManyField(Comment, blank=True)
+	# comments = models.ManyToManyField(Comment, blank=True)
 
 	def __str__(self):
 		return self.name
