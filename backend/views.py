@@ -54,24 +54,18 @@ def searchTopics(request,search_string):
 	Return a list of topics based on the search
 	"""
 	if request.method == 'GET':
-		if Topic.objects.filter(name=search_string).exists():
-
-
-			options = {q: search_string, max_results: 25}
-
-			youtube_search(options)
-
-			topics = Topic.objects.filter(name__icontains=search_string)
-			serializer  = TopicSerializer(topics, many=True, context={'request': request})	
-			#return JsonResponse(serializer.data, safe=False)
-			return HttpResponse(search_string)
-
-
-		else:
+		if Topic.objects.filter(name=search_string).exists() == False:
+			print("not exist")
 			topic = Topic(name = search_string)
 			topic.save()
-			return HttpResponse("Topic Created")
+			options = {'q':search_string, 'max_results': 25, 'topic':topic}
+			youtube_search(options)
+			
+		if Topic.objects.filter(name=search_string).exists() == True:
+			topics = Topic.objects.filter(name__icontains=search_string)
+			serializer  = TopicSerializer(topics, many=True, context={'request': request})	
 
+		return JsonResponse(serializer.data, safe=False)
 
 
 @csrf_exempt
