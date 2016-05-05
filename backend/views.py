@@ -9,6 +9,10 @@ from rest_framework.parsers import JSONParser
 
 from .models import Link, Topic
 from .serializers import *
+from .youtube import youtube_search
+
+from apiclient.errors import HttpError
+from oauth2client.tools import argparser
 
 @csrf_exempt
 def currentUser(request):
@@ -50,9 +54,25 @@ def searchTopics(request,search_string):
 	Return a list of topics based on the search
 	"""
 	if request.method == 'GET':
-		topics = Topic.objects.all()#filter(name__icontains=search_string)
-		serializer = TopicSerializer(topics, many=True, context={'request': request})
-		return JsonResponse(serializer.data, safe=False)
+		if Topic.objects.filter(name=search_string).exists():
+
+
+			options = {q: search_string, max_results: 25}
+
+			youtube_search(options)
+
+			topics = Topic.objects.filter(name__icontains=search_string)
+			serializer  = TopicSerializer(topics, many=True, context={'request': request})	
+			#return JsonResponse(serializer.data, safe=False)
+			return HttpResponse(search_string)
+
+
+		else:
+			topic = Topic(name = search_string)
+			topic.save()
+			return HttpResponse("Topic Created")
+
+
 
 @csrf_exempt
 def topicLinks(request,topic_name):
@@ -140,4 +160,4 @@ def signin(request):
 
 	login(request, user)
 	return HttpResponse("Logged in.")
-
+	
