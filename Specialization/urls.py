@@ -29,7 +29,7 @@ router.register(r'^trajectories', TrajectoryViewSet)
 
 urlpatterns = [
 	url(r'^', include(router.urls)),
-    # url(r'^comment/$', backend.views.comment, name='comment'),
+    url(r'^comments/', include('django_comments.urls')),
     url(r'^currentUser/$', backend.views.currentUser, name='currentUser'),
     url(r'^search/(?P<search_string>.*)/$', backend.views.searchTopics, name='search'),
     url(r'^topicLinks/(?P<topic_name>.*)/$', backend.views.topicLinks, name='links'),
