@@ -3,4 +3,3 @@ env
 staticfiles
 .DS_Store
 node_modules
-db.sqlite3
