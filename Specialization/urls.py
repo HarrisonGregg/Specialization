@@ -18,6 +18,9 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from backend.models import Topic, Link
 from rest_framework import routers, serializers, viewsets
+from django_comments.feeds import LatestCommentFeed
+from django.views.decorators.csrf import csrf_exempt
+# from django_comments.urls import post_comment
 
 import backend.views
 from backend.serializers import *
@@ -29,7 +32,11 @@ router.register(r'^trajectories', TrajectoryViewSet)
 
 urlpatterns = [
 	url(r'^', include(router.urls)),
-    url(r'^comments/', include('django_comments.urls')),
+    url(r'^comments/post/', csrf_exempt(backend.views.post_comment)),
+    # url(r'^comments/', csrf_exempt(include('django_comments.urls'))),
+    url(r'^feeds/latest/$', LatestCommentFeed()),
+    url(r'^getComments/(?P<model>.*)/(?P<id>.*)/$', backend.views.getComments, name='getComments'),
+    # url(r'^addComments/(?P<model>.*)/(?P<id>.*)/$', backend.views.addComments, name='addComments'),
     url(r'^currentUser/$', backend.views.currentUser, name='currentUser'),
     url(r'^search/(?P<search_string>.*)/$', backend.views.searchTopics, name='search'),
     url(r'^topicLinks/(?P<topic_name>.*)/$', backend.views.topicLinks, name='links'),
