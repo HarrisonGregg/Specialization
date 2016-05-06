@@ -25,6 +25,10 @@ from rest_framework.parsers import JSONParser
 
 from .models import Link, Topic
 from .serializers import *
+from .youtube import youtube_search
+
+from apiclient.errors import HttpError
+from oauth2client.tools import argparser
 
 def getComments(request,model,id):
     comments = Comment.objects.filter(object_pk=id,content_type__model=model)
@@ -122,20 +126,6 @@ def currentUser(request):
         return HttpResponse(request.user.username)
     return HttpResponseBadRequest("no user logged in")
 
-# @csrf_exempt
-# def comment(request):
-#   """
-#   Add a comment
-#   """
-#   if request.method == 'POST':
-#       topic_id = request.POST["topic_id"]
-#       text = request.POST["text"]
-#       user = User.objects.get(id=1)
-#       comment = Comment(text=text,user=user)
-#       comment.save()
-#       topic = Topic.objects.get(id=topic_id)
-#       topic.comments.add(comment)
-
 @csrf_exempt
 def getTopic(request,topic_name):
     """
@@ -152,8 +142,17 @@ def searchTopics(request,search_string):
     Return a list of topics based on the search
     """
     if request.method == 'GET':
-        topics = Topic.objects.all()#filter(name__icontains=search_string)
-        serializer = TopicSerializer(topics, many=True, context={'request': request})
+        if Topic.objects.filter(name=search_string).exists() == False:
+            print("not exist")
+            topic = Topic(name = search_string)
+            topic.save()
+            options = {'q':search_string, 'max_results': 25, 'topic':topic}
+            youtube_search(options)
+            
+        if Topic.objects.filter(name=search_string).exists() == True:
+            topics = Topic.objects.filter(name__icontains=search_string)
+            serializer  = TopicSerializer(topics, many=True, context={'request': request})  
+
         return JsonResponse(serializer.data, safe=False)
 
 @csrf_exempt
@@ -242,4 +241,3 @@ def signin(request):
 
     login(request, user)
     return HttpResponse("Logged in.")
-
