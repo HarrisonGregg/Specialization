@@ -1,12 +1,13 @@
 from rest_framework import routers, serializers, viewsets
 from rest_framework.response import Response
+from django_comments.models import Comment
 
 from .models import Trajectory, Level, Topic, Link#, Comment
 
-# class CommentSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Comment
-#         fields = ('date_created', 'score', 'user', 'text')
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ('user_name', 'comment', 'submit_date', 'is_removed')
 
 class TopicSerializer(serializers.ModelSerializer):
     link_count = serializers.IntegerField(source='count_links', read_only=True)
