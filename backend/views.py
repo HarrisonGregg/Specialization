@@ -24,19 +24,19 @@ def currentUser(request):
 		return HttpResponse(request.user.username)
 	return HttpResponseBadRequest("no user logged in")
 
-# @csrf_exempt
-# def comment(request):
-# 	"""
-# 	Add a comment
-# 	"""
-# 	if request.method == 'POST':
-# 		topic_id = request.POST["topic_id"]
-# 		text = request.POST["text"]
-# 		user = User.objects.get(id=1)
-# 		comment = Comment(text=text,user=user)
-# 		comment.save()
-# 		topic = Topic.objects.get(id=topic_id)
-# 		topic.comments.add(comment)
+@csrf_exempt
+def comment(request):
+	"""
+	Add a comment
+	"""
+	if request.method == 'POST':
+		topic_id = request.POST["topic_id"]
+		text = request.POST["text"]
+		user = User.objects.get(id=1)
+		comment = Comment(text=text,user=user)
+		comment.save()
+		topic = Topic.objects.get(id=topic_id)
+		topic .comments.add(comment)
 
 @csrf_exempt
 def getTopic(request,topic_name):
@@ -54,18 +54,22 @@ def searchTopics(request,search_string):
 	Return a list of topics based on the search
 	"""
 	if request.method == 'GET':
-		if Topic.objects.filter(name=search_string).exists() == False:
-			print("not exist")
+		if not Topic.objects.filter(name=search_string).exists():
 			topic = Topic(name = search_string)
 			topic.save()
 			options = {'q':search_string, 'max_results': 25, 'topic':topic}
-			youtube_search(options)
-			
-		if Topic.objects.filter(name=search_string).exists() == True:
+			try:
+				youtube_search(options)
+			except(HttpError,e):
+				print("An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
+
+		if Topic.objects.filter(name=search_string).exists():
 			topics = Topic.objects.filter(name__icontains=search_string)
-			serializer  = TopicSerializer(topics, many=True, context={'request': request})	
+			serializer  = TopicSerializer(topics, many=True, context={'request': request})
+
 
 		return JsonResponse(serializer.data, safe=False)
+
 
 
 @csrf_exempt
