@@ -27,9 +27,15 @@ class Link(models.Model):
 	url = models.URLField(max_length=1000)
 	score = models.IntegerField(default=0)
 	date_added = models.DateTimeField(auto_now_add=True)
+	userVote = models.IntegerField(default=0)
 
 	def __str__(self):
 		return "{topic} - {title}".format(topic=self.topic,title=self.title)
+
+class Vote(models.Model):
+	vote = models.IntegerField(default=0)
+	link = models.ForeignKey(Link)
+	user = models.ForeignKey(User)
 
 class VocabWord(models.Model):
 	date_added = models.DateTimeField(auto_now_add=True)

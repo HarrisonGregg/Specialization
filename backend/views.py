@@ -23,7 +23,7 @@ from django_comments.views.comments import CommentPostBadRequest
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 
-from .models import Link, Topic
+from .models import Link, Topic, Vote
 from .serializers import *
 from .youtube import youtube_search
 from .wikipedia import wiki_api
@@ -152,6 +152,7 @@ def searchTopics(request,search_string):
             youtube_search(options)
             wiki_api(options)
 
+
         if Topic.objects.filter(name=search_string).exists():
             topics = Topic.objects.filter(name__icontains=search_string)
             serializer  = TopicSerializer(topics, many=True, context={'request': request})
@@ -168,6 +169,14 @@ def topicLinks(request,topic_name):
     """
     if request.method == 'GET':
         links = Link.objects.filter(topic__name=topic_name).order_by('-score')
+        for link in links:
+            try:
+                vote = Vote.objects.get(link=link,user=request.user)
+                link.userVote = vote.vote
+            except:
+                link.vote = 0
+        links = list(links)
+        links.sort(key=lambda link: (link.userVote,link.score), reverse=True)
         serializer = LinkSerializer(links, many=True, context={'request': request})
         return JsonResponse(serializer.data, safe=False)
 
@@ -178,6 +187,15 @@ def upvote(request,link_pk):
     """
     if request.method == 'PUT':
         link = Link.objects.get(pk=link_pk)
+
+        try: 
+            vote = Vote.objects.get(link=link,user=request.user)
+            link.score -= vote.vote
+            vote.vote = 1
+        except:
+            vote = Vote(link=link,user=request.user,vote=1)
+
+        vote.save()
         link.score += 1
         link.save()
         serializer = LinkSerializer(link, context={'request': request})
@@ -186,11 +204,40 @@ def upvote(request,link_pk):
 @csrf_exempt
 def downvote(request,link_pk):
     """
-    Increment the score for a link
+    Decrement the score for a link
     """
     if request.method == 'PUT':
         link = Link.objects.get(pk=link_pk)
+
+        try: 
+            vote = Vote.objects.get(link=link,user=request.user)
+            link.score -= vote.vote
+            vote.vote = -1
+        except:
+            vote = Vote(link=link,user=request.user,vote=-1)
+
+        vote.save()
         link.score -= 1
+        link.save()
+        serializer = LinkSerializer(link, context={'request': request})
+        return JsonResponse(serializer.data, safe=False)
+
+@csrf_exempt
+def resetVote(request,link_pk):
+    """
+    Reset the score for a link
+    """
+    if request.method == 'PUT':
+        link = Link.objects.get(pk=link_pk)
+
+        try: 
+            vote = Vote.objects.get(link=link,user=request.user)
+            link.score -= vote.vote
+            vote.vote = 0
+            vote.save()
+        except:
+            pass
+
         link.save()
         serializer = LinkSerializer(link, context={'request': request})
         return JsonResponse(serializer.data, safe=False)
@@ -253,3 +300,13 @@ def signin(request):
 
     login(request, user)
     return HttpResponse("Logged in.")
+
+@csrf_exempt
+def signout(request):
+    try:
+        logout(request)
+    except:
+        return HttpResponseBadRequest("Could not log out.")
+        
+
+    return HttpResponse("Logged out.")
