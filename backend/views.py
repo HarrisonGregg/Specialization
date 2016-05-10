@@ -247,3 +247,13 @@ def signin(request):
 
     login(request, user)
     return HttpResponse("Logged in.")
+
+@csrf_exempt
+def signout(request):
+	try:
+		logout(request)
+	except:
+		return HttpResponseBadRequest("Could not log out.")
+		
+
+	return HttpResponse("Logged out.")

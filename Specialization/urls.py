@@ -48,4 +48,5 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^signup/$', backend.views.signup, name='signup'),
     url(r'^signin/$', backend.views.signin, name='signin'),
+    url(r'^signout/$', backend.views.signout, name='signout'),
 ]
