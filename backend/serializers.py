@@ -15,7 +15,7 @@ class TopicSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Topic
-        fields = ('name','pk','link_count')#,'comments')
+        fields = ('name','pk','link_count')
 
 class TopicViewSet(viewsets.ModelViewSet):
     queryset = Topic.objects.all()
@@ -23,10 +23,11 @@ class TopicViewSet(viewsets.ModelViewSet):
 
 class LinkSerializer(serializers.ModelSerializer):
     score = serializers.IntegerField(required=False)
+    vote = serializers.IntegerField(source='userVote', read_only=True)
 
     class Meta:
         model = Link
-        fields = ('url','score','pk','topic','title','date_added')
+        fields = ('url','score','pk','topic','title','date_added','vote')
 
 class LinkViewSet(viewsets.ModelViewSet):
     queryset = Link.objects.all()
