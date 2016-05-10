@@ -210,6 +210,9 @@ def signup(request):
     except:
         return HttpResponseBadRequest("Fields missing.")
 
+    if not username or not password:
+        return HttpResponseBadRequest("Please fill out all fields.")
+
     try: 
         user.objects.get(username=username)
         return HttpResponseBadRequest("An account with that username already exists.")
@@ -241,6 +244,9 @@ def signin(request):
         password     = request.POST["password"]
     except:
         return HttpResponseBadRequest("Please include a username and password.")
+
+    if not username or not password:
+        return HttpResponseBadRequest("Please fill out all fields.")
 
     user = authenticate(username=username, password=password)
     if not user or not user.is_active:
