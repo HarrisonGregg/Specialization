@@ -1,4 +1,6 @@
 apiclient==1.0.2
+beautifulsoup4==4.4.1
+cssselect==0.9.1
 dj-database-url==0.4.0
 dj-static==0.0.6
 Django==1.9.2
@@ -11,13 +13,17 @@ djangorestframework==3.3.2
 google-api-python-client==1.5.0
 gunicorn==19.4.5
 httplib2==0.9.2
+lxml==3.6.0
 Markdown==2.6.5
 oauth2client==2.0.2
 psycopg2==2.6.1
 pyasn1==0.1.9
 pyasn1-modules==0.0.8
+pyquery==1.2.13
+requests==2.10.0
 rsa==3.4.2
 simplejson==3.8.2
 six==1.10.0
 static3==0.6.1
-google-api-python-client==1.5.0
+uritemplate==0.6
+wikiapi==1.2.4

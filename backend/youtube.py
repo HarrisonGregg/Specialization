@@ -7,7 +7,6 @@ YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
 
 def youtube_search(options):
-
   youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
 
   search_response = youtube.search().list(q=options['q'],part="id,snippet",maxResults=options['max_results']).execute()

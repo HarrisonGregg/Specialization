@@ -26,6 +26,7 @@ from rest_framework.parsers import JSONParser
 from .models import Link, Topic
 from .serializers import *
 from .youtube import youtube_search
+from .wikipedia import wiki_api
 
 from apiclient.errors import HttpError
 from oauth2client.tools import argparser
@@ -118,13 +119,13 @@ def post_comment(request, next=None, using=None):
 
 @csrf_exempt
 def currentUser(request):
-	"""
-	Check if a user is logged in and get their username
-	"""
-	if request.user.is_authenticated():
-		print(request.user.username)
-		return HttpResponse(request.user.username)
-	return HttpResponseBadRequest("no user logged in")
+    """
+    Check if a user is logged in and get their username
+    """
+    if request.user.is_authenticated():
+        print(request.user.username)
+        return HttpResponse(request.user.username)
+    return HttpResponseBadRequest("no user logged in")
 
 
 
@@ -140,25 +141,23 @@ def getTopic(request,topic_name):
 
 @csrf_exempt
 def searchTopics(request,search_string):
-	"""
-	Return a list of topics based on the search
-	"""
-	if request.method == 'GET':
-		if not Topic.objects.filter(name=search_string).exists():
-			topic = Topic(name = search_string)
-			topic.save()
-			options = {'q':search_string, 'max_results': 25, 'topic':topic}
-			try:
-				youtube_search(options)
-			except(HttpError,e):
-				print("An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
+    """
+    Return a list of topics based on the search
+    """
+    if request.method == 'GET':
+        if not Topic.objects.filter(name=search_string).exists():
+            topic = Topic(name = search_string)
+            topic.save()
+            options = dict(q = search_string, max_results=25, topic=topic)
+            youtube_search(options)
+            wiki_api(options)
 
-		if Topic.objects.filter(name=search_string).exists():
-			topics = Topic.objects.filter(name__icontains=search_string)
-			serializer  = TopicSerializer(topics, many=True, context={'request': request})
+        if Topic.objects.filter(name=search_string).exists():
+            topics = Topic.objects.filter(name__icontains=search_string)
+            serializer  = TopicSerializer(topics, many=True, context={'request': request})
 
 
-		return JsonResponse(serializer.data, safe=False)
+        return JsonResponse(serializer.data, safe=False)
 
 
 
